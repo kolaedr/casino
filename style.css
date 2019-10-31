@@ -1,0 +1,194 @@
+@font-face {
+	font-family: 'Conv_362_LCDNOVA';
+	src: url('fonts/362_LCDNOVA.eot');
+    src: local('☺'), url('fonts/362_LCDNOVA.woff') format('woff'), 
+    url('fonts/362_LCDNOVA.ttf') format('truetype'), 
+    url('fonts/362_LCDNOVA.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+.row{
+    display: flex;
+}
+
+.main{
+    width: 70vw;
+    font-family: Conv_362_LCDNOVA;
+    margin: 0 auto;
+}
+
+.result{
+    width: 90%;
+    margin: 0 auto;
+    justify-content: center;
+}
+.result>h3{
+    width: 7em;
+    padding: 2em 0;
+    font-size: 2em;
+    font-weight: 700;
+    border: 1px solid #ccc;
+    margin: 1em;
+    text-align: center;
+    min-height: 5em;
+/* transform: scaleX(1.2); */
+}
+
+.result h3 .fa{
+    font-size: 5em;
+}
+
+
+.reff{
+    width: 100%;
+    padding: .5em;
+    background: linear-gradient(rgb(109, 86, 192), rgb(64, 30, 128));
+    font-size: 3em;
+    color: aliceblue;
+    border-radius: .5em;
+    font-weight: 700;
+    cursor: pointer;
+    text-align: center;
+    letter-spacing: .25em;
+    display: block;
+    box-sizing: border-box;
+}
+
+.casino-balance{
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.casino-balance h1{
+    text-align: center;
+}
+
+.casino-balance span{
+    font-size: 5em;
+    letter-spacing: .2em;
+    font-weight: 700;
+    padding: 0;
+    margin: 0 .25em;
+    text-align: center;
+}
+.spin-main{
+    width: 200px;
+    height: 400px;
+    overflow: hidden;
+    border: 2px solid red;
+    position: relative;
+    /* padding: 0.5em; */
+    /* box-sizing: border-box; */
+}
+.spin{
+    /* width: 200px;
+    height: 600px; */
+    /* overflow: hidden; */
+    /* border: 2px solid red; */
+    display: flex;
+    flex-direction: column;
+    /* box-sizing: border-box; */
+    position: absolute;
+    bottom: -100px;
+    left: 0;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+.spin .fa{
+    font-size: 6em;
+    text-align: center;
+    line-height: 2em;
+    width: 200px;
+    height: 200px;
+    
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.roll-panel{
+    width: 90%;
+    margin: 0 auto;
+}
+
+.roll-panel div{
+    width: 30%;
+    padding: 0 1em;
+}
+
+.roll-panel h2{
+    text-align: center;
+}
+
+.ballans{
+    font-size: 5em;
+    letter-spacing: .2em;
+    font-weight: 700;
+    padding: 0;
+    margin: 0 .25em;
+    text-align: center;
+    /* border: 1px solid #ccc; */
+}
+
+/* .bid-panel{
+    width: 90%;
+} */
+
+.bid-panel p{
+    width: 25%;
+    text-align: center;
+    box-sizing: border-box;
+    border-radius: .5em;
+    background: rgb(109, 86, 192);
+    padding: .25em .5em;
+    margin: 0 1em;
+    color: #fff;
+    font-size: 3em;
+    line-height: 1em;
+    min-height: 1em;
+    cursor: pointer;
+}
+
+/* .blink_me p{
+    animation: blinker 1s linear infinite;
+  } */
+  
+  @keyframes blinker {
+    /* 0%{
+        background: rgb(70, 56, 121);
+    } */
+    50% {
+        background: rgb(115, 87, 218);
+        /* color: rgb(177, 164, 224); */
+        letter-spacing: .2em;
+        transform: scale(1.1);
+    }
+  }
+
+.bid-panel p:hover{
+    animation: blinker .5s linear infinite;
+}
+
+.bid{
+    font-size: 5em;
+    letter-spacing: .2em;
+    font-weight: 700;
+    width: 100%;
+    /* margin: .25em; */
+    box-sizing: border-box;
+    font-family: Conv_362_LCDNOVA;
+    text-align: center;
+}
+
+.win{
+    font-size: 5em;
+    font-weight: 700;
+    color: red;
+    padding: 0;
+    line-height: 1em;
+}
+
+.infoBlock{
+    justify-content: space-around;
+}
