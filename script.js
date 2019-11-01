@@ -19,16 +19,10 @@ let winArr = [
     'N'
 ]
 
-// dq('one').innerHTML = 'dfdfd';
 
-// dqa('result').forEach((item)=>{
-//     item.innerHTML = arr[Math.floor(Math.random()*5)];
-// })
 dq('reff').addEventListener('click', (e) => {
-    // e.preventDefault();
+  
     start();
-
-    // console.log(start());
 });
 
 let amount = 0;
@@ -44,111 +38,55 @@ let bid;
 let bidPanel = dqa('bid-panel p')
 let bidPanelOne = dq('bid-panel')
 
-// let spinOne = dq('spin.one');
-// let spinTwo = dq('spin.two');
-// let spinThree = dq('spin.three');
-// let spin = dq('spin-main');
-// let spinOneTop = spin.getBoundingClientRect();
-// let spinI = dqa('spin i');
-// let topIndex;
-
-// spin.appendChild(spinI[0]); 
-let x = 100;
-let y = 100;
-// let spinMain = setInterval(() => {
-
-
-//     x -= 20;
-//     if (x == 0) {
-//         clearInterval(spinMain);
-//     };
-//     console.log(x, 'x');
-//     ss(x);
-//     function ss(x){
-//         let spin = setInterval(() => {
-//             topIndex += 50;
-//             // y-=y;
-//             // if (y==0) {
-//             //     clearInterval(spin);
-//             // };
-//             if (topIndex == 1200) {
-//                 topIndex = 200;
-//                 clearInterval(spin);
-//                 x-=20
-//                 ss(x);
-
-//             };
-//             // console.log(topIndex, 'topIndex');
-
-//             spin.style.bottom = `-${topIndex}px`;
-//         }, x);
-//     }
-
-// }, 1000)
-// clearInterval(spin);
-
-// function sss(xx){
-//     topIndex = 0;
-//     let fa;
-//     let spinX = setInterval(() => {
-//         fa = dqa('one .fa');
-//         for (const iterator of fa) {
-//             if (iterator.getBoundingClientRect().top-spinOneTop.top > 98) {
-//                 iterator.classList.add('oliver');
-
-//             }
-//             if (iterator.getBoundingClientRect().top-spinOneTop.top < 98 || iterator.getBoundingClientRect().top-spinOneTop.top > 298) {
-//                 iterator.classList.remove('oliver');
-//             }
-
-//             };
-
-//         topIndex += 50;
-//         if (topIndex == 1200) {
-//             topIndex = 200;
-//             // clearInterval(spinX);
-
-//             // xx+=100;
-//             // console.log(xx);
-//             // sss(xx);
-
-//         };
-
-//         xx.style.bottom = `-${topIndex}px`;
-
-
-
-//     }, 100);
-
-//     setInterval(()=>{
-//     let indRoll = Math.floor(Math.random() * arr2.length);
-//         fa = dqa('one .fa');
-//         for (const it of fa) {
-//             if (it.classList.contains('oliver')&&it.getAttribute('data-id')===indRoll) {
-//                 clearInterval(spinX);
-//                 }
-//         }
-
-//     }, 1000)
-// }
-
-
-
-
 casinoBallance.innerHTML = allBalance.toLocaleString();
 userMoney.innerHTML = balanseUser.toLocaleString();
 
-
+if (dq('put-nomey').hasAttribute('disabled')||dq('reff').hasAttribute('disabled')) {
+    dq('put-nomey').style.color = 'rgb(177, 164, 224)';
+    dq('reff').style.color = 'rgb(177, 164, 224)';
+}
 
 bidPanelOne.addEventListener('click', (e) => {
     dq('bid').value = e.target.textContent;
     dq('reff').innerHTML = `Spin my bid ${e.target.textContent}`;
     dq('reff').removeAttribute('disabled');
+    dq('reff').style.color = '#fff';
 
 });
 
+dq('put-nomey').addEventListener('click', () => {
+    balanseUser += +dq('put-nomey-input').value;
+    dq('ballans').innerHTML = balanseUser;
+    dq('put-nomey-input').value='';
+    dq('put-nomey').setAttribute('disabled', 'disabled');
+    if (dq('put-nomey').hasAttribute('disabled')) {
+        dq('put-nomey').style.color = 'rgb(177, 164, 224)';
+    }
+});
+
+dq('put-nomey-input').addEventListener('input', () => {
+    let regBalance = /^\d{1,5}([,.]{1}?\d{1,2}?)?$/gi;
+    if (regBalance.test(dq('put-nomey-input').value)&&dq('put-nomey-input').value>0) {
+        dq('put-nomey').removeAttribute('disabled');
+        dq('put-nomey-input').style.color = 'black';
+        dq('put-nomey').style.color = '#fff';
+    } else {
+        dq('put-nomey-input').style.color = 'red';
+        dq('put-nomey').style.color = 'rgb(177, 164, 224)';
+        dq('put-nomey').setAttribute('disabled', 'disabled');
+    }
+});
+
 dq('bid').addEventListener('input', () => {
-    let regBid = /^[0-9]{0,9}?[^,]?[^.]?([0-9]{0,1})$/gi;
+    if (dq('bid').value>(allBalance / arr2.length)) {
+        
+        dq('max-bid').innerHTML = `Max bid: ${allBalance / arr2.length}`;
+        dq('massage-error').style.top = 0;
+        setTimeout(()=>{
+            dq('massage-error').style.top = '-6em';
+        }, 2000);
+    }
+    let regBid = /^\d{1,9}([,.]{1}?\d{1,2}?)?$/gi;
     if (regBid.test(dq('bid').value)) {
         dq('reff').removeAttribute('disabled');
         dq('bid').style.color = 'black';
@@ -156,7 +94,7 @@ dq('bid').addEventListener('input', () => {
     } else {
         dq('bid').style.color = 'red';
     }
-    if (dq('bid').value<=0) {
+    if (dq('bid').value <= 0) {
         dq('reff').setAttribute('disabled', 'disabled');
     }
 });
@@ -194,8 +132,6 @@ function win() {
             dq('result').classList.remove('asd');
             for (let index = 0; index < dqa('result h3').length; index++) {
                 dqa('result h3')[index].innerHTML = `<i class="fa fa-${arr2[resultGame[index] - 1]} fa-lg"></i>`;
-                // dqa('result h3')[index].innerHTML = ;
-
             }
         } else {
             for (let index = 0; index < dqa('result h3').length; index++) {
@@ -288,10 +224,7 @@ function updateBalanse(sum) {
     } else {
         allBalance += +bid;
         casinoBallance.innerHTML = allBalance.toLocaleString();
-        // balanseUser-=bid
-        // userMoney.innerHTML = balanseUser;
     }
-    console.log(allBalance, balanseUser);
 
 }
 
