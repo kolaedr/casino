@@ -25,9 +25,9 @@ let winArr = [
 //     item.innerHTML = arr[Math.floor(Math.random()*5)];
 // })
 dq('reff').addEventListener('click', (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     start();
-    
+
     // console.log(start());
 });
 
@@ -41,8 +41,8 @@ let balanseUser = 100;
 let resultGame;
 let sum = 0;
 let bid;
-let bidPanel=dqa('bid-panel p')
-let bidPanelOne=dq('bid-panel')
+let bidPanel = dqa('bid-panel p')
+let bidPanelOne = dq('bid-panel')
 
 // let spinOne = dq('spin.one');
 // let spinTwo = dq('spin.two');
@@ -79,11 +79,11 @@ let y = 100;
 
 //             };
 //             // console.log(topIndex, 'topIndex');
-    
+
 //             spin.style.bottom = `-${topIndex}px`;
 //         }, x);
 //     }
-    
+
 // }, 1000)
 // clearInterval(spin);
 
@@ -95,12 +95,12 @@ let y = 100;
 //         for (const iterator of fa) {
 //             if (iterator.getBoundingClientRect().top-spinOneTop.top > 98) {
 //                 iterator.classList.add('oliver');
-    
+
 //             }
 //             if (iterator.getBoundingClientRect().top-spinOneTop.top < 98 || iterator.getBoundingClientRect().top-spinOneTop.top > 298) {
 //                 iterator.classList.remove('oliver');
 //             }
-            
+
 //             };
 
 //         topIndex += 50;
@@ -115,11 +115,11 @@ let y = 100;
 //         };
 
 //         xx.style.bottom = `-${topIndex}px`;
-        
-        
-        
+
+
+
 //     }, 100);
-    
+
 //     setInterval(()=>{
 //     let indRoll = Math.floor(Math.random() * arr2.length);
 //         fa = dqa('one .fa');
@@ -128,7 +128,7 @@ let y = 100;
 //                 clearInterval(spinX);
 //                 }
 //         }
-        
+
 //     }, 1000)
 // }
 
@@ -138,30 +138,33 @@ let y = 100;
 casinoBallance.innerHTML = allBalance.toLocaleString();
 userMoney.innerHTML = balanseUser.toLocaleString();
 
-if(!dq('bid').value){
-    dq('reff').setAttribute('disabled', 'disabled')
-}
 
-bidPanelOne.addEventListener('click', (e)=>{
-    dq('bid').value=e.target.textContent;
+
+bidPanelOne.addEventListener('click', (e) => {
+    dq('bid').value = e.target.textContent;
     dq('reff').innerHTML = `Spin my bid ${e.target.textContent}`;
-    // if(e.event.target){
-        
-    // }
-    console.log(e.target);
-    // for (const iterator of bidPanel) {
-    //     // if(e.event.target)
-    // }
+    dq('reff').removeAttribute('disabled');
+
+});
+
+dq('bid').addEventListener('input', () => {
+    let regBid = /^[0-9]{0,9}?[^,]?[^.]?([0-9]{0,1})$/gi;
+    if (regBid.test(dq('bid').value)) {
+        dq('reff').removeAttribute('disabled');
+        dq('bid').style.color = 'black';
+
+    } else {
+        dq('bid').style.color = 'red';
+    }
+    if (dq('bid').value<=0) {
+        dq('reff').setAttribute('disabled', 'disabled');
+    }
 });
 
 function start() {
     dq('h3').innerHTML = 0;
     dq('h2').innerHTML = 0;
     firstBid = dq('bid').value;
-
-    // for (const item of dqa('result h3')) {
-    //     item.style.color = 'black';
-    // }
 
     if (balanseUser < dq('bid').value) {
         let bal = prompt('You are BANKROT! Put more mony?', 1000);
@@ -183,29 +186,29 @@ function start() {
 
 }
 
-function win(){
+function win() {
     let indexInterval = 0;
     intWin = setInterval(() => {
 
         if (dq('result').classList.contains('asd')) {
             dq('result').classList.remove('asd');
             for (let index = 0; index < dqa('result h3').length; index++) {
-                dqa('result h3')[index].innerHTML = `<i class="fa fa-${arr2[resultGame[index]-1]} fa-lg"></i>`;
+                dqa('result h3')[index].innerHTML = `<i class="fa fa-${arr2[resultGame[index] - 1]} fa-lg"></i>`;
                 // dqa('result h3')[index].innerHTML = ;
-                
+
             }
-        }else{
+        } else {
             for (let index = 0; index < dqa('result h3').length; index++) {
                 dqa('result h3')[index].innerHTML = `<span class="win">${winArr[index]}<span>`;
                 dq('result').classList.add('asd');
             }
         }
         indexInterval++;
-        if (indexInterval===6) {
-        clearInterval(intWin);
+        if (indexInterval === 6) {
+            clearInterval(intWin);
         }
     }, 500);
-    
+
 }
 
 function roll(x) {
@@ -226,14 +229,11 @@ function roll(x) {
         let ind = Math.floor(Math.random() * arr2.length);
         dqa('result h3')[x].innerHTML = `<i class="fa fa-${arr2[ind]} fa-lg"></i>`;
         resultGame.push(ind + 1);
-        // dqa('result h3')[x].setAttribute('data-cost', ind + 1);
         if (x == 2) {
             checkBid();
         }
 
     }, 1000);
-
-    // refresh(); 
 
 }
 
@@ -252,7 +252,7 @@ function checkBid() {
         win();
 
     } else if (resultGame[0] == resultGame[2]) {
-        renderResultLose(resultGame[0]*0.5)
+        renderResultLose(resultGame[0] * 0.5)
         dqa('result h3')[0].style.color = 'orange';
         dqa('result h3')[2].style.color = 'orange';
         win();
@@ -265,20 +265,17 @@ function checkBid() {
 
     } else {
         dq('bid').value = firstBid;
-        
+
         updateBalanse();
-        // dqa('result h3')[0].style.color = 'orange';
 
         for (const item of dqa('result h3')) {
             item.style.color = 'red';
         }
-        // allBalance += +bid;
-        // casinoBallance.innerHTML = allBalance;
-        // balanseUser-=bid
-        // userMoney.innerHTML = balanseUser;
+
     }
-    // console.log(result[0].getAttribute('data-cost'), result[1].getAttribute('data-cost'), result[2].getAttribute('data-cost'));
-    console.log(allBalance, bid);
+    if (dq('bid').value <= 0) {
+        dq('reff').setAttribute('disabled', 'disabled')
+    }
 }
 
 function updateBalanse(sum) {
@@ -299,8 +296,9 @@ function updateBalanse(sum) {
 }
 
 function renderResultWin(arrIndex) {
+    arrIndex++;
     dq('h3').innerHTML = 'x' + arrIndex;
-    sum = bid * arrIndex;
+    sum += +bid + (bid * arrIndex);
 
     dq('h2').innerHTML = sum;
 
@@ -309,8 +307,9 @@ function renderResultWin(arrIndex) {
 }
 
 function renderResultLose(arrIndex) {
+    arrIndex++;
     dq('h3').innerHTML = 'x' + (arrIndex / 2);
-    sum = bid * (arrIndex / 2);
+    sum = +bid + (bid * (arrIndex / 2));
     dq('h2').innerHTML = sum;
     // if (sum<0) {
     //     alert('You lose');
@@ -318,43 +317,4 @@ function renderResultLose(arrIndex) {
     updateBalanse(sum)
 
 }
-
-
-// function checkBid() {
-//     result= dqa('result h3');
-//     console.log(resultGame);
-//     if (result[0].getAttribute('data-cost') == result[1].getAttribute('data-cost')
-//         && result[1].getAttribute('data-cost') == result[2].getAttribute('data-cost')) {
-//         dq('h2').innerHTML = sum * result[0].getAttribute('data-cost');
-//     } else if (result[0].getAttribute('data-cost') == result[1].getAttribute('data-cost')) {
-//         dq('h2').innerHTML = sum * result[0].getAttribute('data-cost');
-//     } else if (result[0].getAttribute('data-cost') == result[2].getAttribute('data-cost')) {
-//         dq('h2').innerHTML = sum * result[0].getAttribute('data-cost');
-//     } else if (result[1].getAttribute('data-cost') == result[2].getAttribute('data-cost')) {
-//         dq('h2').innerHTML = sum * result[1].getAttribute('data-cost');
-//     }
-//     console.log(result[0].getAttribute('data-cost'), result[1].getAttribute('data-cost'), result[2].getAttribute('data-cost'));
-// }
-
-
-// function refresh() {
-//     amount = 0;
-//     let sum = dq('bid').value;
-//     for (const iterator of result) {
-//         let index = Math.floor(Math.random() * 5);
-//         // iterator.innerHTML = arr[index];
-//         iterator.innerHTML = `<i class="fa fa-${arr2[index]} fa-lg"></i>`;
-//         iterator.setAttribute('data-cost', index + 1);
-//         // amount += sum * index;
-//     }
-
-
-
-
-//     console.log(dqa('result h3')[0].getAttribute('data-cost'), dqa('result h3')[1].getAttribute('data-cost'), dqa('result h3')[2].getAttribute('data-cost'));
-//     // dq('bid').value = '';
-
-// }
-
-// console.log(dqa('result h3'));
 

@@ -40,7 +40,8 @@
 }
 
 
-.reff{
+.reff, .put-nomey{
+    min-height: 4em;
     width: 100%;
     padding: .5em;
     background: linear-gradient(rgb(109, 86, 192), rgb(64, 30, 128));
@@ -50,7 +51,6 @@
     font-weight: 700;
     cursor: pointer;
     text-align: center;
-    letter-spacing: .25em;
     display: block;
     box-sizing: border-box;
 }
@@ -131,12 +131,10 @@
     /* border: 1px solid #ccc; */
 }
 
-/* .bid-panel{
-    width: 90%;
-} */
+
 
 .bid-panel p{
-    width: 25%;
+    width: 23%;
     text-align: center;
     box-sizing: border-box;
     border-radius: .5em;
@@ -192,3 +190,48 @@
 .infoBlock{
     justify-content: space-around;
 }
+
+.put-nomey-input{
+    width: 90%;
+    margin: 0.5em auto;
+    font-size: 3em;
+    display: block;
+    text-align: center;
+    font-family: Conv_362_LCDNOVA;
+
+}
+
+
+
+
+@media screen and (max-width: 600px) {
+    .main{
+        width: 100vw;
+    }
+    .bid-panel p{
+        width: 45%;
+        padding: .25em 0;
+        font-size: 2em;
+        box-sizing: border-box;
+        margin: 0.1em 0.1em;
+        border-radius: 0.2em;
+    }
+    .bid-panel{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .casino-balance span {
+        font-size: 3em;
+    }
+
+    .result>h3 {
+        font-size: 1em;
+    }
+    .roll-panel {
+        flex-direction: column-reverse;
+    }
+    .roll-panel div {
+        width: 100%;
+        padding: 0 1em;
+    }
+    }
