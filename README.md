@@ -1,3 +1,3 @@
-# casino
+# Casino game
 
-##Test
+## [Try](https://kolaedr.github.io/casino/)
